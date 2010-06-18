@@ -21,7 +21,7 @@ Also widget-enabled
 3. Go to the Easy Random Quotes page under Settings
 4. Add/edit the quotes you'd like to use on your site
 5. To display in a page or post, use the short code: [erq], or [erq id={id}] if you'd like to use only a specific quote
-6. To add to your template, use the template tag: <?php echo erq_shortcode(); ?>, or <?php echo erq_shortcode(array('id' => '{id}')); ?>  if you'd like to use only a specific quote
+6. To add to your template, use the template tag: `<?php echo erq_shortcode(); ?>`, or `<?php echo erq_shortcode(array('id' => '{id}')); ?>`  if you'd like to use only a specific quote
 
 == Screenshots ==
 
