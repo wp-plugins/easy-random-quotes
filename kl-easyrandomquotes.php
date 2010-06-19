@@ -4,7 +4,7 @@ Plugin Name: Easy Random Quotes
 Plugin URI: http://trepmal.com/plugins/easy-random-quotes/
 Description: Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
 Author: Kailey Lampert
-Version: 1.0
+Version: 1.1
 Author URI: http://kaileylampert.com/
 */
 /*
@@ -55,14 +55,13 @@ class kl_easyrandomquotes {
 		if ( isset( $_POST['erq_add'] ) ) {
 			$newquote = $_POST['erq_newquote'];
 			
-			$theQuotes = unserialize( get_option( 'kl-easyrandomquotes' ) ); 	//get existing
+			$theQuotes =  get_option( 'kl-easyrandomquotes' ) ; 	//get existing
 			if( !empty( $newquote ) ) {
 
 				$theQuotes[] = $newquote;									//add new
 						
 				check_admin_referer( 'easyrandomquotes-update_add' );
 				if ( is_array( $theQuotes ) ) {
-					$theQuotes = serialize( $theQuotes );						//prep it for db again
 					update_option( 'kl-easyrandomquotes',$theQuotes );		//successfully updated
 					echo '<p>New quote was added</p>';
 				}
@@ -79,7 +78,7 @@ class kl_easyrandomquotes {
 			$ids = $_POST['erq_quote'];
 			$dels = $_POST['erq_del'];
 			
-			$theQuotes = unserialize( get_option( 'kl-easyrandomquotes' ) ); 	//get existing
+			$theQuotes =  get_option( 'kl-easyrandomquotes' ) ; 	//get existing
 			
 			foreach( $ids as $id  => $quote ) {
 				$theQuotes[$id] = $quote;									//update each part with new quote
@@ -90,7 +89,6 @@ class kl_easyrandomquotes {
 				unset( $theQuotes[$id] );										//delete selected...
 			}
 
-			$theQuotes = serialize( $theQuotes );								//prep it for db again
 			check_admin_referer( 'easyrandomquotes-update_edit' );
 			if ( get_option( 'kl-easyrandomquotes' ) ==  $theQuotes ) {			//if there were no changes, do this to prevent false positive
 				echo '<p>' . __( 'Nothing changed' ) . '</p>';
@@ -130,7 +128,7 @@ class kl_easyrandomquotes {
 			
 			echo '<tbody>';
 	
-			$theQuotes = unserialize( get_option( 'kl-easyrandomquotes' ) );
+			$theQuotes =  get_option( 'kl-easyrandomquotes' ) ;
 		
 			if ( is_array( $theQuotes ) ) {
 				foreach( $theQuotes as $id=>$quote ) {
