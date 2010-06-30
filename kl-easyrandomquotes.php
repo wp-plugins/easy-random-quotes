@@ -4,7 +4,7 @@ Plugin Name: Easy Random Quotes
 Plugin URI: http://trepmal.com/plugins/easy-random-quotes/
 Description: Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
 Author: Kailey Lampert
-Version: 1.1
+Version: 1.2
 Author URI: http://kaileylampert.com/
 */
 /*
@@ -32,14 +32,10 @@ class kl_easyrandomquotes {
 
 	function kl_easyrandomquotes( ) {
 		add_action( 'admin_menu', array( &$this, 'menu' ) );
-		register_activation_hook( __FILE__, array( &$this, 'activate' ) );
 		register_uninstall_hook( __FILE__, array( &$this, 'uninstall' ) );
 		add_action( 'widgets_init', 'kl_easyrandomquotes_load_widget' ); /* Add our function to the widgets_init hook. */
 	}
 
-	function activate( ) {
-		add_option( 'kl-easyrandomquotes',serialize( array( ) ) );
-	}
 	function uninstall( ) {
 		//uninstall.php runs instead
 		delete_option( 'kl-easyrandomquotes' );
@@ -55,7 +51,13 @@ class kl_easyrandomquotes {
 		if ( isset( $_POST['erq_add'] ) ) {
 			$newquote = $_POST['erq_newquote'];
 			
-			$theQuotes =  get_option( 'kl-easyrandomquotes' ) ; 	//get existing
+			
+			if ( is_array( get_option( 'kl-easyrandomquotes' ) ) ) {
+				$theQuotes = get_option( 'kl-easyrandomquotes' ); //get existing
+			}
+			else {
+				$theQuotes = array(); //else make sure it's at lease an array
+			}
 			if( !empty( $newquote ) ) {
 
 				$theQuotes[] = $newquote;									//add new

@@ -30,6 +30,9 @@ Can refer to quote IDs to use specific quotes. Also widget-enabled
 
 == Changelog ==
 
+= 1.2 =
+* Actually fixed php error when saving data - seriously, if you'll tell me it's broken, I can fix it faster and I won't look like an idiot for so long...
+
 = 1.1 =
 * Fixed php error when saving data
 
