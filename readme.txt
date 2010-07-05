@@ -30,6 +30,9 @@ Can refer to quote IDs to use specific quotes. Also widget-enabled
 
 == Changelog ==
 
+= 1.3 =
+* fixed data storage/retrieval issue
+
 = 1.2 =
 * Actually fixed php error when saving data - seriously, if you'll tell me it's broken, I can fix it faster and I won't look like an idiot for so long...
 

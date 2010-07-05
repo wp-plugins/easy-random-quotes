@@ -4,7 +4,7 @@ Plugin Name: Easy Random Quotes
 Plugin URI: http://trepmal.com/plugins/easy-random-quotes/
 Description: Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
 Author: Kailey Lampert
-Version: 1.2
+Version: 1.3
 Author URI: http://kaileylampert.com/
 */
 /*
@@ -166,7 +166,7 @@ function erq_shortcode( $atts = array( 'id' => 'rand' ) ) {
 	extract(shortcode_atts(array(
 			'id' => 'rand'
 			), $atts));
-	$theQuotes = unserialize( get_option( 'kl-easyrandomquotes' ) ); 	//get exsisting
+	$theQuotes = get_option( 'kl-easyrandomquotes' ); 	//get exsisting
 	$tot = count( $theQuotes )-1;
 	$rand = rand( 0,$tot );
 	$use = ($id == 'rand') ? $rand : $id;
