@@ -30,6 +30,11 @@ Can refer to quote IDs to use specific quotes. Also widget-enabled
 
 == Changelog ==
 
+= 1.4 =
+* added reset button to delete all quotes without uninstalling
+* added title option in widget
+* ready for localization
+
 = 1.3 =
 * fixed data storage/retrieval issue
 

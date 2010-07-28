@@ -4,7 +4,7 @@ Plugin Name: Easy Random Quotes
 Plugin URI: http://trepmal.com/plugins/easy-random-quotes/
 Description: Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
 Author: Kailey Lampert
-Version: 1.3
+Version: 1.4
 Author URI: http://kaileylampert.com/
 */
 /*
@@ -93,25 +93,35 @@ class kl_easyrandomquotes {
 
 			check_admin_referer( 'easyrandomquotes-update_edit' );
 			if ( get_option( 'kl-easyrandomquotes' ) ==  $theQuotes ) {			//if there were no changes, do this to prevent false positive
-				echo '<p>' . __( 'Nothing changed' ) . '</p>';
+				echo '<p>' . __( 'Nothing changed' , 'easy-random-quotes' ) . '</p>';
 			}
 			else if ( update_option( 'kl-easyrandomquotes',$theQuotes ) ) {		//if option was successfully update with new values
-				echo '<p>' . __( 'Quote was edited/deleted' ) . '</p>';
+				echo '<p>' . __( 'Quote was edited/deleted' , 'easy-random-quotes' ) . '</p>';
 			}
 			else {
-				echo '<p>' . __( 'Oops, something didn\'t work' ) . '</p>';		// uh oh.....
+				echo '<p>' . __( 'Oops, something didn\'t work' , 'easy-random-quotes' ) . '</p>';		// uh oh.....
 			}
 		}
 
+		if ( isset( $_POST['clear'] ) ) {
+	
+			if ( !isset( $_POST['confirm'])) {
+				echo '<p>' . __( 'You must confirm for a reset' , 'easy-random-quotes' ) . '</p>';
+			}
+			else if (delete_option( 'kl-easyrandomquotes' )) {
+				echo '<p>' . __( 'All quotes deleted' , 'easy-random-quotes' ) . '</p>';
+			}
+	
+		}
 
-		echo '<h3>' . __( 'Add Quote' ) . '</h3>';
+		echo '<h3>' . __( 'Add Quote' , 'easy-random-quotes' ) . '</h3>';
 			echo '<form method="post">';
 			wp_nonce_field( 'easyrandomquotes-update_add' );
 			echo '<table class="widefat page">';
-			echo '<thead><tr><th class="manage-column" colspan = "2">' . __( 'Add New' ) . '</th></tr></thead>';
+			echo '<thead><tr><th class="manage-column" colspan = "2">' . __( 'Add New' , 'easy-random-quotes' ) . '</th></tr></thead>';
 			echo '<tbody><tr>';
 			echo '<td><textarea name="erq_newquote" rows="6" cols="60"></textarea></td>';
-			echo '<td><p><input type="hidden" name="erq_add" /><input type="submit" value = "' . __( 'Add' ) . '" /></p></td>';
+			echo '<td><p><input type="hidden" name="erq_add" /><input type="submit" value = "' . __( 'Add' , 'easy-random-quotes' ) . '" /></p></td>';
 			echo '</tr></tbody>';
 			echo '</table>';
 			echo '</form>';
@@ -122,8 +132,8 @@ class kl_easyrandomquotes {
 			echo '<table class="widefat page">';
 			$tblrows = '<tr>
 							<th class="manage-column column-cb check-column" id="cb"><input type="checkbox" /></th>
-							<th class="manage-column">' . __( 'The quote' ) . '</th>
-							<th class="manage-column">' . __( 'Short code (for posts/pages)' ) . '</th>
+							<th class="manage-column">' . __( 'The quote' , 'easy-random-quotes' ) . '</th>
+							<th class="manage-column">' . __( 'Short code (for posts/pages)' , 'easy-random-quotes' ) . '</th>
 				</tr>';
 			echo '<thead>' . $tblrows . '</thead>';
 			echo '<tfoot>' . $tblrows . '</tfoot>';
@@ -142,11 +152,11 @@ class kl_easyrandomquotes {
 				}
 			}
 		
-			else { echo '<tr><th>' . __( 'No quotes' ) . '</th></tr>'; }
+			else { echo '<tr><th>' . __( 'No quotes' , 'easy-random-quotes' ) . '</th></tr>'; }
 
 			echo '</tbody>';
 			echo '</table>';
-			echo '<p><input type="hidden" name="erq_edit" /><input type="submit" value = "' . __( 'Save' ) . '" /></p>';
+			echo '<p><input type="hidden" name="erq_edit" /><input type="submit" value = "' . __( 'Save' , 'easy-random-quotes' ) . '" /></p>';
 			echo '</form>';
 			echo '<p><strong>' . __( 'Short code: ' ) . '</strong><br />';
 			echo 'Specific quote: <code>' . '[erq id=2]' . '</code><br />';
@@ -154,7 +164,11 @@ class kl_easyrandomquotes {
 			echo '<p><strong>' . __( 'Template tag: ' ) . '</strong><br />';
 			echo 'Specific quote: <code>' . htmlspecialchars( '<?php echo erq_shortcode(array(\'id\' => \'2\')); ?>' ) . '</code><br />';
 			echo 'Random: <code>' . htmlspecialchars( '<?php echo erq_shortcode(); ?>' ) . '</code></p>';
-			echo '<p>' . __( 'Quotes retained when plugin deactivated. Quotes deleted when plugin removed.' ) . '</p>';
+			echo '<p>' . __( 'Quotes retained when plugin deactivated. Quotes deleted when plugin removed.' , 'easy-random-quotes' ) . '</p>';
+
+
+			echo '<p><form method="post"><input type="submit" name="clear" value = "' . __( 'Reset' , 'easy-random-quotes' ) . '" /> <label for="confirm_delete"><input type="checkbox" name="confirm" id="confirm_delete" value="true" />' . __( 'Check to confirm' , 'easy-random-quotes' ) . '</label></form></p>';
+
 			echo '</div>';
 		
 	}// end page( ) function
@@ -190,12 +204,30 @@ class kl_easyrandomquotes_widget extends WP_Widget {
 		extract( $args );
 		echo $before_widget; /* Before widget (defined by themes). */
 		if ( $instance[ 'title' ] ) echo $before_title . $instance[ 'title' ] . $after_title; /* Title of widget (before and after defined by themes). */
-		echo erq_shortcode( );
+		echo '<p>'.erq_shortcode( ).'</p>';
 		echo $after_widget; /* After widget (defined by themes). */
 	}
 
+	function update( $new_instance, $old_instance ) {
+
+		$instance = $old_instance;
+
+		$instance['title'] = stripslashes($new_instance['title']);
+
+		return $instance;
+		
+	}
+
 	function form( $instance ) {
-		echo '<p>Displays random quote.</p>';
+
+		$defaults = array('title' => 'A Random Thought');
+
+		$instance = wp_parse_args( (array) $instance, $defaults );
+		
+		echo '<p><label for="'.$this->get_field_id( 'title' ).'">'. 'Title'.'</label>
+        	<input type="text" id="'. $this->get_field_id( 'title' ).'" name="'.$this->get_field_name( 'title' ).'" value="'.$instance['title'].'" /></p>';
+
+	//	echo '<p>Displays random quote.</p>';
 	}
 }
 /* end widget */
