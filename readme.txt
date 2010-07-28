@@ -10,7 +10,7 @@ Insert quotes and pull them randomly into your pages and posts (via shortcodes) 
 
 == Description ==
 
-Works with 3.0. Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
+Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
 Can refer to quote IDs to use specific quotes. Also widget-enabled
 
 == Installation ==
