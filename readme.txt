@@ -13,6 +13,12 @@ Insert quotes and pull them randomly into your pages and posts (via shortcodes) 
 Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
 Can refer to quote IDs to use specific quotes. Also widget-enabled
 
+* [other plugins by this author](http://wordpress.org/extend/plugins/profile/trepmal)
+* [author's profile](http://profiles.wordpress.org/users/trepmal/)
+* [author's forum profile](http://wordpress.org/support/profile/trepmal)
+* [donate](http://kaileylampert.com/donate/)
+* [author's website](http://kaileylampert.com)
+
 == Installation ==
 
 1. Upload the contents of the zip file to the your plugins directory (default: `/wp-content/plugins/`)
