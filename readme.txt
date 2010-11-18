@@ -31,7 +31,7 @@ Can refer to quote IDs to use specific quotes. Also widget-enabled
 == Changelog ==
 
 = 1.5 =
-* fixed issue were widget would try to display non-existant (deleted) quotes
+* fixed issue where widget would try to display non-existant (deleted) quotes
 * general updating, code cleaning
 * utilizes contextual help in WordPress
 
