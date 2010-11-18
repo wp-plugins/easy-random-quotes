@@ -10,14 +10,8 @@ Insert quotes and pull them randomly into your pages and posts (via shortcodes) 
 
 == Description ==
 
-Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
+Works with 3.0. Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
 Can refer to quote IDs to use specific quotes. Also widget-enabled
-
-* [other plugins by this author](http://wordpress.org/extend/plugins/profile/trepmal)
-* [author's profile](http://profiles.wordpress.org/users/trepmal/)
-* [author's forum profile](http://wordpress.org/support/profile/trepmal)
-* [donate](http://kaileylampert.com/donate/)
-* [author's website](http://kaileylampert.com)
 
 == Installation ==
 
@@ -35,6 +29,11 @@ Can refer to quote IDs to use specific quotes. Also widget-enabled
 3. Shortcode
 
 == Changelog ==
+
+= 1.5 =
+* fixed issue were widget would try to display non-existant (deleted) quotes
+* general updating, code cleaning
+* utilizes contextual help in WordPress
 
 = 1.4 =
 * added reset button to delete all quotes without uninstalling
