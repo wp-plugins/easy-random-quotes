@@ -3,7 +3,7 @@ Contributors: trepmal
 Donate link: http://kaileylampert.com/donate/
 Tags: random quotes, widget, plugin, shortcodes
 Requires at least: 2.8
-Tested up to: 3.0
+Tested up to: 3.0.4
 Stable tag: trunk
 
 Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
@@ -29,6 +29,9 @@ Can refer to quote IDs to use specific quotes. Also widget-enabled
 3. Shortcode
 
 == Changelog ==
+
+= 1.6 =
+* adds import option
 
 = 1.5 =
 * fixed issue where widget would try to display non-existant (deleted) quotes

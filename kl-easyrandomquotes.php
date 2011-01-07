@@ -4,7 +4,7 @@ Plugin Name: Easy Random Quotes
 Plugin URI: http://trepmal.com/plugins/easy-random-quotes/
 Description: Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
 Author: Kailey Lampert
-Version: 1.5
+Version: 1.6
 Author URI: http://kaileylampert.com/
 */
 /*
@@ -81,6 +81,37 @@ class kl_easyrandomquotes {
 
 		}//end if add
 
+		if ( isset( $_POST['erq_import'] ) ) {
+			$newquotes = $_POST['erq_newquote'];
+			$newquotes = explode( "\n", $newquotes );
+			$newquotes = array_filter( $newquotes );
+			
+			global $erq_count;
+			$erq_count = count( $newquotes );
+
+			if ( is_array( get_option( 'kl-easyrandomquotes' ) ) ) {
+				$theQuotes = get_option( 'kl-easyrandomquotes' ); //get existing
+			} else {
+				$theQuotes = array(); //else make sure it's at lease an array
+			}
+			
+			//array_merge messes up the keys, and using the '+' method will skip certain items
+			foreach ($newquotes as $newquote) {
+				$theQuotes[] = $newquote;
+			}
+	
+			check_admin_referer( 'easyrandomquotes-update_add' );
+			if ( is_array( $theQuotes ) ) {
+				update_option( 'kl-easyrandomquotes',$theQuotes ); //successfully updated
+				add_action( 'admin_notices', 'erq_import_success' );
+				function erq_import_success() { global $erq_count; echo "<div class=\"updated\"><p>$erq_count " . __( "new quotes were added" , "easy-random-quotes" ) . "</p></div>";}
+			} else { //uh oh...
+				add_action( 'admin_notices', create_function('$a', 'echo "<div class=\"updated\"><p>" . __( "Oops, something didn\'t work" , "easy-random-quotes" ) . "</p></div>";') );
+			}
+
+
+		}//end if add
+
 		if ( isset( $_POST[ 'erq_edit' ] ) ) {
 
 			$ids = $_POST[ 'erq_quote' ];
@@ -122,13 +153,15 @@ class kl_easyrandomquotes {
 	function page( ) {
 		echo '<div class="wrap">';
 		echo '<h2>' . __( 'Easy Random Quotes' , 'easy-random-quotes' ) . '</h2>';
-
+		
 		echo '<h3>' . __( 'Add Quote' , 'easy-random-quotes' ) . '</h3>';
 			echo '<form method="post">';
 			wp_nonce_field( 'easyrandomquotes-update_add' );
 			echo '<table class="widefat page"><thead><tr><th class="manage-column" colspan = "2">' . __( 'Add New' , 'easy-random-quotes' ) . '</th></tr></thead><tbody><tr>';
 			echo '<td><textarea name="erq_newquote" rows="6" cols="60"></textarea></td>';
-			echo '<td><p><input type="hidden" name="erq_add" /><input type="submit" value = "' . __( 'Add' , 'easy-random-quotes' ) . '" /></p></td>';
+			echo '<td><p><input name="erq_add" type="submit" value = "' . __( 'Add' , 'easy-random-quotes' ) . '" />
+			<input name="erq_import" type="submit" value = "' . __( 'Import' , 'easy-random-quotes' ) . '" /></p><p>
+			With Import, each new line will be treated as the start of a new quote</p></td>';
 			echo '</tr></tbody></table>';
 			echo '</form>';
 
@@ -151,7 +184,7 @@ class kl_easyrandomquotes {
 					echo '<td>[erq id=' . $id . ']</td>';
 					echo '</tr>';
 				}
-			} else { echo '<tr><th>' . __( 'No quotes' , 'easy-random-quotes' ) . '</th></tr>'; }
+			} else { echo '<tr><th colspan="3">' . __( 'No quotes' , 'easy-random-quotes' ) . '</th></tr>'; }
 
 			echo '</tbody></table>';
 			echo '<p>' . 
@@ -159,7 +192,7 @@ class kl_easyrandomquotes {
 			'<br /><input type="hidden" name="erq_edit" /><input type="submit" class="button-primary" value = "' . 
 			__( 'Save Changes' , 'easy-random-quotes' ) . '" /></p>';
 			echo '</form>';
-
+			
 		echo '</div>';
 
 	}// end page()
