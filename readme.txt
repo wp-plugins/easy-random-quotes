@@ -1,26 +1,26 @@
 === Easy Random Quotes ===
-Contributors: trepmal 
+Contributors: trepmal
 Donate link: http://kaileylampert.com/donate/
 Tags: random quotes, widget, plugin, shortcodes
 Requires at least: 2.8
-Tested up to: 3.0.4
+Tested up to: 3.5.1
 Stable tag: trunk
 
-Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
+Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags).
 
 == Description ==
 
-Works with 3.0. Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags). 
+Insert quotes and pull them randomly into your pages and posts (via shortcodes) or your template (via template tags).
 Can refer to quote IDs to use specific quotes. Also widget-enabled
 
 == Installation ==
 
 1. Upload the contents of the zip file to the your plugins directory (default: `/wp-content/plugins/`)
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to the Easy Random Quotes page under Settings
-4. Add/edit the quotes you'd like to use on your site
-5. To display in a page or post, use the short code: [erq], or [erq id={id}] if you'd like to use only a specific quote
-6. To add to your template, use the template tag: `<?php echo erq_shortcode(); ?>`, or `<?php echo erq_shortcode(array('id' => '{id}')); ?>`  if you'd like to use only a specific quote
+1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Go to the Easy Random Quotes page under Settings
+1. Add/edit the quotes you'd like to use on your site
+1. To display in a page or post, use the short code: [erq], or [erq id={id}] if you'd like to use only a specific quote
+1. To add to your template, use the template tag: `<?php echo erq_shortcode(); ?>`, or `<?php echo erq_shortcode(array('id' => '{id}')); ?>`  if you'd like to use only a specific quote
 
 == Screenshots ==
 
@@ -28,7 +28,16 @@ Can refer to quote IDs to use specific quotes. Also widget-enabled
 2. Widget
 3. Shortcode
 
+== Upgrade Notice ==
+
+= 1.7 =
+New: Random quotes from a given list of ids: [erq id='2,4,6']
+
 == Changelog ==
+
+= 1.7 =
+* New: Random quotes from a given list of ids: [erq id='2,4,6']
+* General cleanup
 
 = 1.6 =
 * adds import option
